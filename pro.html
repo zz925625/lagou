@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+            *{margin: 0;padding: 0;}
+            ul,li{
+                list-style: none;
+            }
+        .foot{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        .f_ul{
+            display: flex;
+            justify-content: space-around;
+            
+        }
+        .f_li{
+            height: 45px;
+            float: left;
+            line-height: 45px;
+        }
+        .company{
+            height: 90px;
+            width: 100%;
+            /* background: red; */
+            border-bottom: 1px solid black;
+        }
+        .top{
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            font-size: 24px;
+            color:#fff;
+            background-color: #00b38a;
+        }
+        .a{
+            width: 180px;
+            height: 85px;
+            background: #00b38a;
+            display: inline-block;
+            margin-bottom: 10px;
+            text-align: center;
+            line-height: 85px;
+        }
+        .t{
+            width: 125px;
+            height: 45px;
+            background: #00b38a;
+            display: block;
+            margin: 30px auto;
+            text-align: center;
+            line-height: 45px;
+
+        }
+        .aa{
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div class="top">{{top}}</div>
+        <component :is=num></component>
+        <div class="foot">
+            <ul class="f_ul">
+                <li v-for='i in list' @click='change(i)' f_li>
+                    {{i.desc}}
+                </li>
+            </ul>
+        </div>
+        
+            
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component('position',{
+            data(){
+                return {
+                    list:[
+                        {name:'喜悦',desc:'UI设计师[北京]',salary:'15k-25k'},
+                        {name:'飞流科技',desc:'平台运维工程师[北京]',salary:'10k-17k'},
+                        {name:'丘比特',desc:'游戏视频设计开发师[北京]',salary:'10k-20k'}
+                    ]
+                }
+            },
+            template:`
+            <ul>
+                <li class='company' v-for='i in list'>
+                    {{i.name}}-{{i.desc}}-{{i.salary}}
+                </li>
+
+            </ul>`,
+        })
+        Vue.component('search',{
+            data(){
+                return {
+
+                }
+            },
+            template:`
+            <div>
+                <select>
+                    <option value="0">全国</option>
+                </select>
+                <input type="text" placeholder="搜索职位或公司"/>
+            </div>
+            
+            `,
+
+        })
+        Vue.component('mine',{
+            data(){
+                return {
+login:'登录/注册',
+give:'投递',
+reg:'面试',
+date:'邀约',
+col:'收藏'
+                }
+            },
+            template:`
+            <div>
+                <a class='login t '>{{login}}</a>
+                <div class='aa'>
+                    <a class="give a ">{{give}}</a>
+                    <a class="reg a">{{reg}}</a>
+                    <a class="date a">{{date}}</a>
+                    <a class="col a">{{col}}</a>
+                </div>
+                
+            </div>
+            `
+
+        })
+
+
+        let vm = new Vue({
+            el:'#box',
+            data:{
+                top:'拉勾网',
+                num:'position',
+                list:[
+                    {id:'position',desc:'职位',},
+                    {id:'search',desc:'搜索',},
+                    {id:'mine',desc:'我的',}
+                ]
+            },
+            methods:{
+                change(i){
+                    this.num = i.id
+                }
+            }
+        })
+    </script>
+</body>
+</html>
